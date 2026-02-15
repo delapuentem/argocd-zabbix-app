@@ -1,0 +1,17 @@
+namespace: zabbix
+
+postgres:
+  image: postgres:15-alpine
+  user: zabbix
+  password: zabbix12345
+  dbName: zabbix
+  port: 5432
+
+zabbix:
+  image: zabbix/zabbix-web-nginx-postgresql:alpine-6.4-latest
+  nodePort: 31080
+
+grafana:
+  image: grafana/grafana-oss:latest
+  adminPassword: admin12345
+  nodePort: 31300
