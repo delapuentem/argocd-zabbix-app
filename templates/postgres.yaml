@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zabbix-db
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: "zabbix-db-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-db
+  template:
+    metadata:
+      labels:
+        app: zabbix-db
+    spec:
+      containers:
+      - name: postgres
+        image: {{ .Values.postgres.image }}
+        env:
+        - name: POSTGRES_DB
+          value: {{ .Values.postgres.dbName }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgres.user }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.postgres.password }}
+        ports:
+        - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-db-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: zabbix-db
+  ports:
+    - port: {{ .Values.postgres.port }}
