@@ -8,8 +8,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: zabbix-agent2-role
-spec:
-  rules:
+rules:
   - apiGroups: [""]
     resources: ["nodes", "nodes/spec", "nodes/stats", "pods", "services", "endpoints", "pods/proxy"]
     verbs: ["get", "list", "watch"]
