@@ -14,6 +14,7 @@ spec:
     spec:
       # Esto permite que el agente vea las métricas de red reales del nodo
       hostNetwork: true
+      serviceAccountName: zabbix-agent2
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: zabbix-agent2
