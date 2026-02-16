@@ -8,7 +8,7 @@ postgres:
   port: 5432
 
 zabbix:
-  image: zabbix/zabbix-web-nginx-postgresql:alpine-6.4-latest
+  image: zabbix/zabbix-web-nginx-pgsql:7.4-alpine-latest
   nodePort: 31080
 
 grafana:
