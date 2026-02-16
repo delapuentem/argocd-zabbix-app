@@ -18,3 +18,7 @@ grafana:
   image: grafana/grafana-oss:latest
   adminPassword: admin12345
   nodePort: 31300
+
+zabbix_agent:
+  image: zabbix/zabbix-agent2:7.4-alpine-latest
+  server_host: "zabbix-server-service"
