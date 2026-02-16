@@ -11,6 +11,9 @@ zabbix:
   image: zabbix/zabbix-web-nginx-pgsql:7.4-alpine-latest
   nodePort: 31080
 
+zabbix_server:
+  image: zabbix/zabbix-server-pgsql:7.4-alpine-latest
+
 grafana:
   image: grafana/grafana-oss:latest
   adminPassword: admin12345
