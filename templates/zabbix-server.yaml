@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-server
+  template:
+    metadata:
+      labels:
+        app: zabbix-server
+    spec:
+      containers:
+      - name: zabbix-server
+        image: {{ .Values.zabbix_server.image }}
+        env:
+        - name: DB_SERVER_HOST
+          value: "zabbix-db-service"
+        - name: POSTGRES_DB
+          value: {{ .Values.postgres.dbName }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgres.user }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.postgres.password }}
+        ports:
+        - containerPort: 10051
+          name: zabbix-trapper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-server-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: zabbix-server
+  ports:
+    - port: 10051
+      targetPort: 10051
