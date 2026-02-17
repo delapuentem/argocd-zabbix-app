@@ -19,6 +19,22 @@ spec:
         env:
         - name: GF_SECURITY_ADMIN_PASSWORD
           value: {{ .Values.grafana.adminPassword }}
+        - name: GF_INSTALL_PLUGINS
+          value: "alexanderzobnin-zabbix-app"
+        - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS
+          value: "alexanderzobnin-zabbix-datasource"
+        ports:
+        - containerPort: 3000
+
+        volumeMounts:
+        - name: ds-config
+          mountPath: /etc/grafana/provisioning/datasources/zabbix.yaml
+          subPath: zabbix.yaml
+      
+      volumes:
+      - name: ds-config
+        configMap:
+          name: grafana-datasources
 ---
 apiVersion: v1
 kind: Service
